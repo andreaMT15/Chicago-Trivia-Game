@@ -34,16 +34,38 @@ var triviaQuestions = [
 ];
 
 var score = 0;
-var questionIndex = 0;
+var count = 0;
 
 function populateQuestions() {
   for (var i = 0; i < triviaQuestions.length; i++) {
     var individualQuestion = triviaQuestions[i];
-    $("#questionTitle").text = individualQuestion.q;
-    var radioBtn = $("<input type='radio'>");
-    radioBtn.addClass("answer-button");
-    $("#answer").append(radioBtn.options);
-    console.log("this is working");
+    var questionDiv = $("<div>");
+    questionDiv.append("<p>" + individualQuestion.q + "</p>");
+    for (var j = 0; j < individualQuestion.options.length; j++) {
+      var radioDiv = $("<div>");
+      var radioInput = $("<input type='radio'>");
+      radioDiv.append(radioInput);
+      var labelDiv = $("<label>").text(individualQuestion.options[j]);
+      radioDiv.append(labelDiv);
+      questionDiv.append(radioDiv);
+    }
+    $("#questions").append(questionDiv);
+
+    // $("#questions").append("<div>" + individualQuestion.q + "</div>");
+    // var radioBtn;
+
+    // for (var j = 0; j < radioBtn.options.length; j++) {
+    //   $("#questions").append(
+    //     "<input type= 'radio'>" + radioBtn.options + "</input>"
+    //   );
+    // }
+
+    // console.log(individualQuestion);
   }
 }
+
 populateQuestions();
+
+// var radioBtn = $("<input type='radio'>");
+// radioBtn.addClass("answer-button");
+// $("#answer").append(radioBtn.options);
