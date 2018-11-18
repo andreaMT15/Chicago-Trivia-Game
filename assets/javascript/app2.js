@@ -40,41 +40,41 @@ function populateQuestions() {
     for (var i = 0; i < triviaQuestions.length; i++) {
         var individualQuestion = triviaQuestions[i];
         $("#questions").append(`<div>${individualQuestion.q}</div>`);
-        //     for (var j = 0; j < individualQuestion.options.length; j++) {
-        //       $("#questions").append(
-        //         `<input type="radio" name="question-${j}" value="${
-        //           individualQuestion.options[j]
-        //         }">${individualQuestion.options[j]}</input>`
-        //       );
-        //     }
-        //   }
-        //   $("#questions").append('<button id="submit-btn">Submit</button>');
+            for (var j = 0; j < individualQuestion.options.length; j++) {
+              $("#questions").append(
+                `<input type="radio" name="question-${j}" value="${
+                  individualQuestion.options[j]
+                }">${individualQuestion.options[j]}</input>`
+              );
+            }
+          }
+          $("#questions").append('<button id="submit-btn">Submit</button>');
     }
     populateQuestions();
-// var answers = [];
+var answers = [];
 
-// $("#questions").on("click", "input[type='radio']", function() {
-//   //collect inputs as user clicks
-//   answers.push(this.value);
-// });
+$("#questions").on("click", "input[type='radio']", function() {
+  //collect inputs as user clicks
+  answers.push(this.value);
+});
 
-//on click function for button
-//function will loop over questions and compare correct answer to answer in answers array
-//for (var i = 0; i < triviaQuestions.length; i++) {
-// is triviaQuestions[i] === answer[i]
-//incrememnt correct answers/wrong answers variables appropietely
+on click function for button
+function will loop over questions and compare correct answer to answer in answers array
+for (var i = 0; i < triviaQuestions.length; i++) {
+is triviaQuestions[i] === answer[i]
+incrememnt correct answers/wrong answers variables appropietely
 
-// function populateAnswers() {
-//   for (var i = 0; i < triviaQuestions.length; i++)
-//     var radioBtn = triviaQuestions[i];
-//   $("#question-1").append(
-//     "<input type= 'radio'>" + radioBtn.options + "</input>"
-//   );
-// }
+function populateAnswers() {
+  for (var i = 0; i < triviaQuestions.length; i++)
+    var radioBtn = triviaQuestions[i];
+  $("#question-1").append(
+    "<input type= 'radio'>" + radioBtn.options + "</input>"
+  );
+}
 
-// populateAnswers();
+populateAnswers();
 
 
-// var radioBtn = $("<input type='radio'>");
-// radioBtn.addClass("answer-button");
-// $("#answer").append(radioBtn.options);
+var radioBtn = $("<input type='radio'>");
+radioBtn.addClass("answer-button");
+$("#answer").append(radioBtn.options);

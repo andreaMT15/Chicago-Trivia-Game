@@ -8,7 +8,7 @@ var triviaQuestions = [
       "The Field Museum",
       "The Planetarium"
     ],
-    correctAnswer: 2
+    correctAnswer: "The Water Tower"
   },
   {
     q:
@@ -19,7 +19,7 @@ var triviaQuestions = [
       "The John Hancock Center",
       "The Aon Center"
     ],
-    correctAnswer: 3
+    correctAnswer: "The John Hancock Center"
   },
   {
     q: "What twin buildings are known to Chicago residents as the 'corn cobs'?",
@@ -29,13 +29,27 @@ var triviaQuestions = [
       "Navy Pier",
       "The Shedd Aquarium"
     ],
-    correctAnswer: 1
+    correctAnswer: "Marina City"
   }
 ];
 
+var timer = "Time Left: 60 seconds";
+var intervalId;
 var score = 0;
 var count = 0;
+var correct = 0;
+var incorrect = 0;
+var answers = [];
+var inputs = $("#questions").children("input:checked");
 
+function time() {
+  intervalId = setInterval(decrement, 1000);
+}
+
+function decrement() {
+  time--;
+  $("#show-timer").html("<h5>" + timer + "</h5>");
+}
 function populateQuestions() {
   for (var i = 0; i < triviaQuestions.length; i++) {
     var individualQuestion = triviaQuestions[i];
@@ -43,29 +57,20 @@ function populateQuestions() {
     questionDiv.append("<p>" + individualQuestion.q + "</p>");
     for (var j = 0; j < individualQuestion.options.length; j++) {
       var radioDiv = $("<div>");
-      var radioInput = $("<input type='radio'>");
+      var radioInput = $("<input type='radio' name='selection'>");
       radioDiv.append(radioInput);
       var labelDiv = $("<label>").text(individualQuestion.options[j]);
       radioDiv.append(labelDiv);
       questionDiv.append(radioDiv);
     }
     $("#questions").append(questionDiv);
-
-    // $("#questions").append("<div>" + individualQuestion.q + "</div>");
-    // var radioBtn;
-
-    // for (var j = 0; j < radioBtn.options.length; j++) {
-    //   $("#questions").append(
-    //     "<input type= 'radio'>" + radioBtn.options + "</input>"
-    //   );
-    // }
-
-    // console.log(individualQuestion);
+    radioInput.on("click", "input[type=radio]", function() {
+      answers.push(inputs);
+      console.log(answers);
+    });
   }
 }
 
 populateQuestions();
-
-// var radioBtn = $("<input type='radio'>");
-// radioBtn.addClass("answer-button");
-// $("#answer").append(radioBtn.options);
+time();
+decrement();
