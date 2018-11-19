@@ -32,57 +32,94 @@ var triviaQuestions = [
       "The Shedd Aquarium"
     ],
     correctAnswer: "Marina City"
+  },
+  {
+    q: "What museum is located on the far south side of the city?'?",
+    options: [
+      "The Planetarium",
+      "The Field Museum",
+      "The Chicago History Museum",
+      "The Museum of Science and Industry"
+    ],
+    correctAnswer: "The Museum of Science and Industry"
   }
 ];
 
-var timer = 60;
+var time = 60;
 var intervalId;
-var score = 0;
-var count = 0;
 var correct = 0;
 var incorrect = 0;
 var userAnswers;
-var inputs = $("#questions").children("input:checked");
 
-//timer
-function time() {
-  intervalId = setInterval(decrement, 1000);
-}
+//start screen
+$(document).ready(function() {
+  var startScreen = $("<div>");
+  startScreen.append(
+    '<img src="assets/images/The Chicago Trivia Quiz.png"></img>'
+  );
+  var btnDiv = $("<div>");
+  var startBtn = $(
+    '<button type="button" id="start-btn">' + "Start" + "</button>"
+  );
+  btnDiv.append(startBtn);
+  startScreen.append(btnDiv);
+  $("#start").append(startScreen);
+  $("#start-btn").on("click", startGame);
+});
 
-function decrement() {
-  time--;
-  $("#show-timer").html("<h5>" + timer + "</h5>");
-}
-
-//Display Questions on the screen along with radio buttons for answers
-function populateQuestions() {
-  for (var i = 0; i < triviaQuestions.length; i++) {
-    var individualQuestion = triviaQuestions[i];
-    var questionDiv = $("<div>");
-    questionDiv.append("<p>" + individualQuestion.q + "</p>");
-    for (var j = 0; j < individualQuestion.options.length; j++) {
-      var radioDiv = $("<div>");
-      var radioInput = $("<input type='radio' name='selection'>");
-      radioInput.attr("value", individualQuestion.options[j]);
-      radioDiv.append(radioInput);
-      var labelDiv = $("<label>").text(individualQuestion.options[j]);
-      radioDiv.append(labelDiv);
-      questionDiv.append(radioDiv);
+function startGame() {
+  $("#start").empty();
+  //Display Questions on the screen along with radio buttons for answers
+  function populateQuestions() {
+    for (var i = 0; i < triviaQuestions.length; i++) {
+      var individualQuestion = triviaQuestions[i];
+      var questionDiv = $("<div>");
+      questionDiv.append("<p>" + individualQuestion.q + "</p>");
+      for (var j = 0; j < individualQuestion.options.length; j++) {
+        var radioDiv = $("<div>");
+        var radioInput = $("<input type='radio' name='selection'>");
+        radioInput.attr("value", individualQuestion.options[j]);
+        radioDiv.append(radioInput);
+        var labelDiv = $("<label>").text(individualQuestion.options[j]);
+        radioDiv.append(labelDiv);
+        questionDiv.append(radioDiv);
+      }
+      $("#questions").append(questionDiv);
     }
-    $("#questions").append(questionDiv);
   }
-
+  //timer
+  function startTime() {
+    clearInterval(intervalId);
+    intervalId = setInterval(decrement, 1000);
+  }
+  function decrement() {
+    time--;
+    $("#show-timer").html("Time Left:" + " " + time + "  " + "seconds");
+    if (time === 0) {
+      clearInterval(intervalId);
+      endScreen();
+    }
+  }
   //capture the value of the button that was clicked
   $(document).on("click", "input[type=radio]", function() {
     userAnswers = $(this).val();
-    console.log(answers);
-    if (answers === triviaQuestions.correctAnswer) {
+    // console.log(answers);
+    //If else statement checking for matches
+    if (userAnswers === triviaQuestions.correctAnswer) {
       correct++;
-      $("#correct").text("Correct Answers:" + correct);
+    } else {
+      incorrect++;
     }
   });
-}
 
-populateQuestions();
-time();
-decrement();
+  function endScreen() {
+    $("#questions").empty();
+    $("#show-timer").empty();
+    $("#correct").append("Correct Answers: " + correct);
+    $("#incorrect").append("Wrong Answers: " + incorrect);
+  }
+  //function calls
+  populateQuestions();
+  startTime();
+  decrement();
+}
