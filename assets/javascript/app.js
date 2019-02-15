@@ -77,6 +77,8 @@ function startTime() {
 }
 
 function decrement() {
+  console.log("time is ticking");
+
   time--;
   $("#show-timer").html("Time Left:" + " " + time + "  " + "seconds");
   if (time === 0) {
@@ -121,6 +123,11 @@ function startGame() {
     }
   });
 }
+
+$("#submit-btn").on("click", function() {
+  clearInterval(intervalId);
+  endScreen();
+});
 
 function endScreen() {
   $("#submit-btn").hide();
