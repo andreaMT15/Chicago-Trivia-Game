@@ -8,6 +8,10 @@ body {
   font-size: 18px;
 }
 
+h3 {
+  display: none;
+}
+
 img {
   position: relative;
   top: 50px;
@@ -29,6 +33,7 @@ img {
 p {
   margin-bottom: 15px;
   font-weight: 550;
+  margin-right: 10px;
 }
 
 input {
@@ -52,4 +57,26 @@ label {
   border-radius: 8px;
   color: white;
   font-weight: bold;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  #start-img {
+    display: none;
+  }
+
+  h3 {
+    display: block;
+    line-height: 1.5;
+  }
+
+  #start-btn {
+    position: absolute;
+    left: 40%;
+    top: 10%;
+    height: 40px;
+    width: 75px;
+    font-size: 15px;
+    margin-top: 10px;
+    background-color: navy;
+  }
 }

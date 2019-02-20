@@ -34,7 +34,7 @@ var triviaQuestions = [
     correctAnswer: "Marina City"
   },
   {
-    q: "What museum is located on the far south side of the city?'?",
+    q: "What museum is located on the far south side of the city?",
     options: [
       "The Planetarium",
       "The Field Museum",
@@ -45,19 +45,18 @@ var triviaQuestions = [
   }
 ];
 
-var time = 20;
+var time = 30;
 var intervalId;
 var correct = 0;
 var incorrect = 0;
 var userAnswers;
-// var inputs = $("#questions").children("input:checked");
 
 //start screen
 $(document).ready(function() {
   $("#submit-btn").hide();
   var startScreen = $("<div>");
   startScreen.append(
-    '<img src="assets/images/The Chicago Trivia Quiz.png"></img>'
+    '<img src="assets/images/The Chicago Trivia Quiz.png" id="start-img"></img>'
   );
   var btnDiv = $("<div>");
   var startBtn = $(
@@ -77,8 +76,6 @@ function startTime() {
 }
 
 function decrement() {
-  console.log("time is ticking");
-
   time--;
   $("#show-timer").html("Time Left:" + " " + time + "  " + "seconds");
   if (time === 0) {
